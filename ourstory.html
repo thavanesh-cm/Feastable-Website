@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Cocoa Story — Feastables</title>
+  <meta name="description" content="Discover how Feastables evolved from a fun snack brand to an ethically responsible industry disruptor fighting child labor in the cocoa industry.">
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="ourstory.css">
+</head>
+<body>
+
+  <!-- ========================
+       PROMO BANNER
+       ======================== -->
+  <div class="promo-banner" id="promoBanner">
+    <div class="promo-banner__track">
+      <span class="promo-banner__item">🚀 FREE SHIPPING ON ORDERS $50+ <span>★</span></span>
+      <span class="promo-banner__item">🍫 NEW: MARIO GALAXY COLLECTION <span>★</span></span>
+      <span class="promo-banner__item">🎟️ MYSTERY TICKET INSIDE EVERY BAR <span>★</span></span>
+      <span class="promo-banner__item">🌍 ETHICALLY SOURCED COCOA <span>★</span></span>
+      <span class="promo-banner__item">🚀 FREE SHIPPING ON ORDERS $50+ <span>★</span></span>
+      <span class="promo-banner__item">🍫 NEW: MARIO GALAXY COLLECTION <span>★</span></span>
+      <span class="promo-banner__item">🎟️ MYSTERY TICKET INSIDE EVERY BAR <span>★</span></span>
+      <span class="promo-banner__item">🌍 ETHICALLY SOURCED COCOA <span>★</span></span>
+    </div>
+  </div>
+
+  <!-- ========================
+       GLOBAL HEADER
+       ======================== -->
+  <header class="header" id="header" style="position: sticky; top: 0; box-shadow: 0 4px 24px rgba(0,0,0,0.1);">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo">
+        <img src="images/logo.png" alt="Mr Beast Feastables Logo" class="header__logo-image" onerror="this.src=''; this.alt='FEASTABLES'; this.style.fontSize='24px'; this.style.fontWeight='900';">
+      </a>
+      <nav class="header__nav" id="mainNav">
+        <a href="index.html#products">Shop</a>
+        <a href="ourstory.html" class="active">Our Story</a>
+        <a href="ethicalsourcing.html">Ethical Sourcing</a>
+        <a href="index.html#whereToBuy">Available Worldwide</a>
+      </nav>
+      <div class="header__utils">
+        <button class="header__util-btn" title="Help">?</button>
+        <a href="region.html" class="header__util-btn" id="regionBtn" title="Region" style="text-decoration:none;">🇺🇸</a>
+        <button class="header__util-btn" title="Account">☺</button>
+        <button class="header__util-btn" title="Store Locator">📍</button>
+        <a href="index.html" class="header__util-btn" id="homeBtn" title="Home" style="text-decoration:none;">🏠</a>
+        <a href="cart.html" class="header__util-btn" id="cartBtn" title="Cart" style="position:relative; text-decoration:none;">
+          🛒
+          <span class="header__cart-count"></span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================
+       SECTION 1: HERO CANVAS
+       ======================== -->
+  <section class="os-hero" id="osHero">
+    <div class="os-hero__content">
+      <h1 class="os-hero__title" id="osHeroTitle">OUR COCOA<br>STORY</h1>
+    </div>
+
+    <!-- Floating product images (parallax) -->
+    <div class="os-hero__float os-hero__float--1" data-parallax="0.3">
+      <img src="images/milk-chocolate-bar.png" alt="Milk Chocolate Bar">
+    </div>
+    <div class="os-hero__float os-hero__float--2" data-parallax="0.5">
+      <img src="images/crunch-chocolate-bar.png" alt="Crunch Bar">
+    </div>
+    <div class="os-hero__float os-hero__float--3" data-parallax="0.2">
+      <img src="images/dark-chocolate-bar.png" alt="Dark Chocolate Bar">
+    </div>
+    <div class="os-hero__float os-hero__float--4" data-parallax="0.4">
+      <img src="images/cookies-cream-bar.png" alt="Cookies & Cream Bar">
+    </div>
+    <div class="os-hero__float os-hero__float--5" data-parallax="0.35">
+      <img src="images/pb-cups-classic.png" alt="Peanut Butter Cups">
+    </div>
+    <div class="os-hero__float os-hero__float--6" data-parallax="0.45">
+      <img src="images/almond-chocolate-bar.png" alt="Almond Chocolate Bar">
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="os-hero__scroll">
+      <span>Scroll to explore</span>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ========================
+       SECTION 2: GENESIS BLOCK
+       ======================== -->
+  <section class="os-genesis" id="osGenesis">
+    <div class="os-genesis__inner">
+      <div class="os-genesis__text" data-reveal>
+        <h2 class="os-genesis__heading">FEASTABLES BEGAN AS A FUN, BETTER-FOR-YOU SNACK BRAND</h2>
+        <p class="os-genesis__desc">Inspired by MrBeast's journey with Crohn's and his mission to make great-tasting, accessible snacks. What started as a dream to prove that better ingredients could mean bolder flavors quickly became a movement.</p>
+      </div>
+      <div class="os-genesis__visual" data-reveal>
+        <img src="images/mrbeast-cocoa.jpg" alt="MrBeast Founder with product" class="os-genesis__image" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       SECTION 3: FIRST LAUNCH
+       ======================== -->
+  <section class="os-launch" id="osLaunch">
+    <!-- Floating legacy packages -->
+    <div class="os-launch__float os-launch__float--tl" data-parallax="0.3">
+      <img src="images/mario-galaxy.png" alt="Legacy Product">
+    </div>
+    <div class="os-launch__float os-launch__float--br" data-parallax="0.4">
+      <img src="images/beast-games-bundle.png" alt="Legacy Product">
+    </div>
+
+    <div class="os-launch__inner">
+      <h2 class="os-launch__heading" data-reveal>OUR FIRST LAUNCH — THE MRBEAST BAR WASN'T JUST A CHOCOLATE BAR</h2>
+      <p class="os-launch__desc" data-reveal>It was a flavor-packed adventure, complete with gamified experiences, fan engagement, and over-the-top stunts. Every bar was a ticket to something bigger — golden tickets, cash prizes, and memories that brought millions together.</p>
+    </div>
+  </section>
+
+  <!-- ========================
+       SECTION 4: SCALE & RESPONSIBILITY
+       ======================== -->
+  <section class="os-scale" id="osScale">
+    <div class="os-scale__inner">
+      <h2 class="os-scale__heading" data-reveal>
+        <span class="pink">AS WE GREW, SO DID OUR STANDARDS</span><br>
+        <span class="white">& OUR RESPONSIBILITY</span>
+      </h2>
+      <p class="os-scale__desc" data-reveal>For what we make and what we stand for. We reformulated our recipes for an even bigger, bolder flavor and redesigned our packaging and bars to match. Every ingredient was reconsidered, every supplier re-evaluated.</p>
+      <div class="os-scale__products" data-reveal>
+        <img src="images/milk-chocolate-bar.png" alt="Milk Chocolate" class="os-scale__product-img" data-parallax="0.15" loading="lazy">
+        <img src="images/dark-chocolate-bar.png" alt="Dark Chocolate" class="os-scale__product-img" data-parallax="0.25" loading="lazy">
+        <img src="images/crunch-chocolate-bar.png" alt="Crunch Chocolate" class="os-scale__product-img" data-parallax="0.35" loading="lazy">
+        <img src="images/cookies-cream-bar.png" alt="Cookies & Cream" class="os-scale__product-img" data-parallax="0.2" loading="lazy">
+        <img src="images/almond-chocolate-bar.png" alt="Almond Chocolate" class="os-scale__product-img" data-parallax="0.3" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       SECTION 5: HARD TRUTH
+       ======================== -->
+  <section class="os-truth" id="osTruth">
+    <div class="os-truth__inner">
+      <div class="os-truth__pod" data-reveal>
+        <img src="images/cocoa-pods-detail.jpg" alt="Raw Cocoa Pods" loading="lazy">
+      </div>
+      <div class="os-truth__text" data-reveal>
+        <p class="os-truth__sub">ALONG THE WAY WE UNCOVERED</p>
+        <h2 class="os-truth__heading">THE HARD TRUTH BEHIND THE COCOA INDUSTRY</h2>
+        <p class="os-truth__desc">And how cocoa is farmed in some regions. <strong>1.5 million kids in child labor, widespread poverty, and systemic injustice.</strong> We couldn't look the other way.</p>
+      </div>
+      <div class="os-truth__pod-right" data-reveal>
+        <img src="images/cocoa-pods-raw.png" alt="Processed Cocoa" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       SECTION 6: TAKE A STAND
+       ======================== -->
+  <section class="os-stand" id="osStand">
+    <div class="os-stand__left">
+      <div class="os-stand__left-content" data-reveal>
+        <h2 class="os-stand__heading">
+          <span class="pink">WE KNEW WE HAD</span><br>
+          <span class="white">TO TAKE A STAND</span>
+        </h2>
+        <p class="os-stand__sub">And change chocolate for good.</p>
+      </div>
+    </div>
+    <div class="os-stand__right">
+      <div class="os-stand__right-content" data-reveal>
+        <h3 class="os-stand__cta-heading">HELP US FIGHT CHILD LABOR</h3>
+        <img src="images/team-community.png" alt="Our team working with cocoa farming communities" class="os-stand__team-img" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       SECTION 7: NEW MISSION CORE
+       ======================== -->
+  <section class="os-mission" id="osMission">
+    <div class="os-mission__inner">
+      <div class="os-mission__card" data-reveal>
+        <!-- Fairtrade Seal -->
+        <div class="os-mission__seal">FAIR<br>TRADE<br>✓</div>
+
+        <p class="os-mission__card-sub">NOW, AT THE CORE OF</p>
+        <h2 class="os-mission__card-heading">
+          <span class="pink">FEASTABLES IS</span><br>
+          <span class="white">A NEW MISSION</span>
+        </h2>
+        <p class="os-mission__card-body">Eradicate child labor in the cocoa industry. Our cocoa is 100% Fairtrade certified. We pay farmers the living income reference price or the market price, whatever is higher! And we only partner with farms that actively protect children. And there's more to come.</p>
+
+        <div class="os-mission__badges">
+          <div class="os-mission__badge os-mission__badge--ft">☑ Fairtrade Certified</div>
+          <div class="os-mission__badge os-mission__badge--ici">🌍 International Cocoa Initiative</div>
+          <div class="os-mission__badge os-mission__badge--tc">❤ Tony's Open Chain</div>
+        </div>
+      </div>
+
+      <!-- Polaroid photos -->
+      <div class="os-mission__photos" data-reveal>
+        <div class="os-mission__polaroid">
+          <img src="images/children-mission.jpg" alt="Children in classrooms" loading="lazy">
+          <p class="os-mission__polaroid-caption">Kids in classrooms, not fields</p>
+        </div>
+        <div class="os-mission__polaroid">
+          <img src="images/team-community.png" alt="Farming community" loading="lazy">
+          <p class="os-mission__polaroid-caption">Empowered communities</p>
+        </div>
+        <div class="os-mission__polaroid">
+          <img src="images/cocoa-pods-raw.png" alt="Ethically sourced cocoa" loading="lazy">
+          <p class="os-mission__polaroid-caption">100% Fairtrade cocoa</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       SECTION 8: FINAL CTA
+       ======================== -->
+  <section class="os-cta" id="osCta">
+    <div class="os-cta__inner">
+      <p class="os-cta__sub" data-reveal>WE STILL BRING THE FUN — NOW WITH</p>
+      <h2 class="os-cta__heading" data-reveal>BOLDER FLAVOR AND A BIGGER PURPOSE</h2>
+      <p class="os-cta__desc" data-reveal>From chocolate bars to cups and beyond, every bite helps build a better future for the people behind it. Join us on this journey.</p>
+      <a href="ethicalsourcing.html" class="os-cta__btn" data-reveal id="osMissionBtn">LEARN MORE ABOUT OUR MISSION</a>
+    </div>
+
+    <!-- Floating product bottom-right -->
+    <div class="os-cta__float" data-parallax="0.2">
+      <img src="images/peanut-butter.png" alt="Peanut Butter Bar Cross Section" loading="lazy">
+    </div>
+  </section>
+
+  <!-- ========================
+       FOOTER
+       ======================== -->
+  <footer class="footer" id="footer" style="margin-top: 0;">
+    <div class="footer__inner">
+      <div class="footer__col">
+        <h4 class="footer__col-title">Shop</h4>
+        <div class="footer__links">
+          <a href="index.html#products">Shop All</a>
+          <a href="#">Chocolate</a>
+          <a href="#">Gummies</a>
+          <a href="#">Bundles</a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4 class="footer__col-title">Get to Know Us</h4>
+        <div class="footer__links">
+          <a href="ourstory.html">Our Story</a>
+          <a href="ethicalsourcing.html">Ethical Sourcing</a>
+          <a href="#">Better Peanut Butter</a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4 class="footer__col-title">Info</h4>
+        <div class="footer__links">
+          <a href="#">FAQ</a>
+          <a href="#">Contact Us</a>
+          <a href="#">My Account</a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <form class="footer__email-form" onsubmit="event.preventDefault();">
+          <input type="email" class="footer__email-input" placeholder="Enter Email" required>
+          <button type="submit" class="footer__email-submit">Sign Up</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span class="footer__logo-large">MR BEAST FEASTABLES</span>
+    </div>
+  </footer>
+
+  <!-- ========================
+       STICKY BOTTOM BAR
+       ======================== -->
+  <div class="os-sticky-bar" id="osStickyBar">
+    <button class="os-sticky-bar__close" id="osStickyClose" title="Close">✕</button>
+    <p class="os-sticky-bar__text">Every Feastables bar supports farmers & communities worldwide</p>
+    <a href="index.html#products" class="os-sticky-bar__btn" id="osJoinBtn">JOIN THE CREW!</a>
+  </div>
+
+  <script src="cart.js"></script>
+  <script src="ourstory.js"></script>
+  <script>
+    // Restore saved region flag in header
+    (function() {
+      try {
+        var saved = localStorage.getItem('feastables_region');
+        if (saved) {
+          var region = JSON.parse(saved);
+          var btn = document.getElementById('regionBtn');
+          if (btn && region.flag) btn.textContent = region.flag;
+        }
+      } catch(e) {}
+    })();
+  </script>
+</body>
+</html>

@@ -31,13 +31,13 @@
       </a>
       <nav class="header__nav" id="mainNav">
         <a href="index.html#products">Shop</a>
-        <a href="index.html#mission">Our Story</a>
-        <a href="index.html#mission">Ethical Sourcing</a>
+        <a href="ourstory.html">Our Story</a>
+        <a href="ethicalsourcing.html">Ethical Sourcing</a>
         <a href="index.html#whereToBuy">Available Worldwide</a>
       </nav>
       <div class="header__utils">
         <button class="header__util-btn" title="Help">?</button>
-        <button class="header__util-btn" title="Region">🇺🇸</button>
+        <a href="region.html" class="header__util-btn" id="regionBtn" title="Region" style="text-decoration:none;">🇺🇸</a>
         <button class="header__util-btn" title="Account">☺</button>
         <button class="header__util-btn" title="Store Locator">📍</button>
         <a href="index.html" class="header__util-btn" id="homeBtn" title="Home" style="text-decoration:none;">🏠</a>
@@ -199,6 +199,19 @@
 
       renderCart();
     });
+  </script>
+  <script>
+    // Restore saved region flag in header
+    (function() {
+      try {
+        var saved = localStorage.getItem('feastables_region');
+        if (saved) {
+          var region = JSON.parse(saved);
+          var btn = document.getElementById('regionBtn');
+          if (btn && region.flag) btn.textContent = region.flag;
+        }
+      } catch(e) {}
+    })();
   </script>
 </body>
 </html>

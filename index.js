@@ -8,41 +8,58 @@
 
   // ========================================
   // 1. HERO SCROLL-SYNCED CANVAS ANIMATION
-  //    Lerp-interpolated for buttery 60fps
+  //    Premium, ultra-smooth 60fps engine
   // ========================================
 
   const TOTAL_FRAMES = 204;
   const FRAME_PATH = 'heroanimation/imagesha/ezgif-frame-';
-  const HERO_SCROLL_DISTANCE = 1200; // total px of scroll for the full animation
-  const LERP_SPEED = 0.08; // interpolation factor (lower = smoother/slower glide)
+  const HERO_SCROLL_DISTANCE = 1200;
+  const LERP_SPEED = 0.10;
 
+  // Circumference for SVG progress ring (2 * PI * 54)
+  const CIRCLE_CIRCUMFERENCE = 339.292;
+
+  // DOM refs
   const canvas = document.getElementById('heroCanvas');
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { willReadFrequently: false });
   const heroSection = document.getElementById('heroSection');
-  const loaderFill = document.getElementById('loaderFill');
-  const loaderText = document.getElementById('loaderText');
   const heroLoader = document.getElementById('heroLoader');
+  const loaderProgress = document.getElementById('loaderProgress');
+  const loaderPct = document.getElementById('loaderPct');
   const scrollHint = document.getElementById('scrollHint');
+  const textOverlay = document.getElementById('heroTextOverlay');
+  const ctaOverlay = document.getElementById('heroCtaOverlay');
 
-  // Set hero section height: viewport + scroll distance
+  // Set hero section height
   heroSection.style.height = (window.innerHeight + HERO_SCROLL_DISTANCE) + 'px';
 
-  // Frame image storage
+  // Frame storage
   const frames = new Array(TOTAL_FRAMES);
   let imagesLoaded = 0;
   let animationReady = false;
 
   // Smooth interpolation state
-  let targetFrame = 0;   // where scroll says we should be
-  let displayFrame = 0;  // what's actually rendered (float, lerped)
+  let targetFrame = 0;
+  let displayFrame = 0;
   let lastDrawnFrame = -1;
 
-  // Format frame number with leading zeros
+  // Idle breathing state
+  let hasScrolled = false;
+  let idleTime = 0;
+  const IDLE_AMPLITUDE = 4;     // oscillate across 4 frames (0–4)
+  const IDLE_SPEED = 0.0008;    // slow breathing
+
+  // Overlay state tracking (avoid redundant class toggling)
+  let textOverlayState = 'hidden';  // 'hidden' | 'visible' | 'fade-out'
+  let ctaOverlayState = 'hidden';   // 'hidden' | 'visible'
+  let scrollHintState = 'hidden';   // 'hidden' | 'visible'
+
+  // ---- Utility: pad frame number ----
   function padNumber(num) {
     return String(num).padStart(3, '0');
   }
 
-  // Set canvas dimensions for 16:9
+  // ---- Canvas resize (DPI-aware) ----
   function resizeCanvas() {
     const dpr = window.devicePixelRatio || 1;
     const width = window.innerWidth;
@@ -54,23 +71,21 @@
     canvas.style.height = height + 'px';
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    // Update hero height on resize
     heroSection.style.height = (window.innerHeight + HERO_SCROLL_DISTANCE) + 'px';
 
-    // Redraw current frame on resize
     if (animationReady && lastDrawnFrame >= 0 && frames[lastDrawnFrame]) {
       drawFrame(lastDrawnFrame);
     }
   }
 
-  // Draw a specific frame to canvas
+  // ---- Draw a frame (cover-fit) ----
   function drawFrame(index) {
-    if (!frames[index]) return;
     const img = frames[index];
+    if (!img) return;
+
     const cw = canvas.width / (window.devicePixelRatio || 1);
     const ch = canvas.height / (window.devicePixelRatio || 1);
 
-    // Cover-fit the image into the canvas
     const imgRatio = img.naturalWidth / img.naturalHeight;
     const canvasRatio = cw / ch;
     let drawW, drawH, drawX, drawY;
@@ -91,43 +106,62 @@
     ctx.drawImage(img, drawX, drawY, drawW, drawH);
   }
 
-  // Preload all frames
+  // ---- Preload all frames ----
   function preloadFrames() {
     for (let i = 1; i <= TOTAL_FRAMES; i++) {
       const img = new Image();
       img.src = FRAME_PATH + padNumber(i) + '.jpg';
+
       img.onload = function () {
         frames[i - 1] = img;
         imagesLoaded++;
-        const pct = Math.round((imagesLoaded / TOTAL_FRAMES) * 100);
-        loaderFill.style.width = pct + '%';
-        loaderText.textContent = 'Loading experience... ' + pct + '%';
-
-        if (imagesLoaded === TOTAL_FRAMES) {
-          animationReady = true;
-          heroLoader.classList.add('loaded');
-          scrollHint.classList.remove('hidden');
-          lastDrawnFrame = 0;
-          drawFrame(0);
-          startRenderLoop();
-        }
+        updateLoaderUI();
+        if (imagesLoaded === TOTAL_FRAMES) onAllFramesLoaded();
       };
+
       img.onerror = function () {
         imagesLoaded++;
-        const pct = Math.round((imagesLoaded / TOTAL_FRAMES) * 100);
-        loaderFill.style.width = pct + '%';
-        if (imagesLoaded === TOTAL_FRAMES) {
-          animationReady = true;
-          heroLoader.classList.add('loaded');
-          lastDrawnFrame = 0;
-          drawFrame(0);
-          startRenderLoop();
-        }
+        updateLoaderUI();
+        if (imagesLoaded === TOTAL_FRAMES) onAllFramesLoaded();
       };
     }
   }
 
-  // Calculate the target frame from scroll position
+  // ---- Update the circular loader UI ----
+  function updateLoaderUI() {
+    const pct = Math.round((imagesLoaded / TOTAL_FRAMES) * 100);
+    const offset = CIRCLE_CIRCUMFERENCE - (CIRCLE_CIRCUMFERENCE * pct / 100);
+    loaderProgress.style.strokeDashoffset = offset;
+    loaderPct.textContent = pct + '%';
+  }
+
+  // ---- Called when all frames are loaded ----
+  function onAllFramesLoaded() {
+    animationReady = true;
+
+    // Draw the first frame
+    lastDrawnFrame = 0;
+    drawFrame(0);
+
+    // Fade out loader
+    heroLoader.classList.add('loaded');
+
+    // After loader fades, show text overlay + scroll hint
+    setTimeout(function () {
+      // Show text overlay with entrance animation
+      textOverlay.classList.add('visible');
+      textOverlayState = 'visible';
+
+      // Show scroll hint
+      scrollHint.classList.add('visible');
+      scrollHintState = 'visible';
+    }, 650);
+
+    // Start the render loop
+    startRenderLoop();
+  }
+
+  // ---- Calculate target frame from scroll ----
   function updateTargetFrame() {
     if (!animationReady) return;
 
@@ -137,25 +171,88 @@
 
     targetFrame = progress * (TOTAL_FRAMES - 1);
 
-    // Hide scroll hint after scrolling a bit
-    if (progress > 0.03) {
-      scrollHint.classList.add('hidden');
+    // Mark that user has scrolled (disables idle breathing)
+    if (progress > 0.005 && !hasScrolled) {
+      hasScrolled = true;
+    }
+
+    // --- Overlay choreography ---
+
+    // Text overlay: visible frames 0–70, fade out 70–90
+    if (progress < 0.34) {
+      // frames 0–70 approx
+      if (textOverlayState !== 'visible') {
+        textOverlay.classList.remove('fade-out');
+        textOverlay.classList.add('visible');
+        textOverlayState = 'visible';
+      }
+    } else if (progress < 0.44) {
+      // frames 70–90 approx — fade out
+      if (textOverlayState !== 'fade-out') {
+        textOverlay.classList.add('fade-out');
+        textOverlayState = 'fade-out';
+      }
     } else {
-      scrollHint.classList.remove('hidden');
+      if (textOverlayState !== 'hidden') {
+        textOverlay.classList.remove('visible');
+        textOverlay.classList.remove('fade-out');
+        textOverlayState = 'hidden';
+      }
+    }
+
+    // CTA overlay: visible on final frames (progress > 0.88 → frame 180+)
+    if (progress > 0.88) {
+      if (ctaOverlayState !== 'visible') {
+        ctaOverlay.classList.add('visible');
+        ctaOverlayState = 'visible';
+      }
+    } else {
+      if (ctaOverlayState !== 'hidden') {
+        ctaOverlay.classList.remove('visible');
+        ctaOverlayState = 'hidden';
+      }
+    }
+
+    // Scroll hint: hide after scrolling a bit
+    if (progress > 0.02) {
+      if (scrollHintState !== 'hidden') {
+        scrollHint.classList.remove('visible');
+        scrollHint.classList.add('hidden');
+        scrollHintState = 'hidden';
+      }
+    } else if (animationReady && textOverlayState === 'visible') {
+      if (scrollHintState !== 'visible') {
+        scrollHint.classList.remove('hidden');
+        scrollHint.classList.add('visible');
+        scrollHintState = 'visible';
+      }
     }
   }
 
-  // Continuous 60fps render loop with lerp interpolation
+  // ---- 60fps render loop with lerp + idle breathing ----
   function startRenderLoop() {
-    function tick() {
+    let lastTimestamp = 0;
+
+    function tick(timestamp) {
       if (!animationReady) {
         requestAnimationFrame(tick);
         return;
       }
 
+      const dt = timestamp - lastTimestamp;
+      lastTimestamp = timestamp;
+
+      // Idle breathing when user hasn't scrolled
+      if (!hasScrolled) {
+        idleTime += dt;
+        // Gentle sine oscillation across frames 0–IDLE_AMPLITUDE
+        const breatheFrame = (IDLE_AMPLITUDE / 2) + (IDLE_AMPLITUDE / 2) * Math.sin(idleTime * IDLE_SPEED);
+        targetFrame = breatheFrame;
+      }
+
       // Lerp displayFrame toward targetFrame
       const diff = targetFrame - displayFrame;
-      if (Math.abs(diff) > 0.1) {
+      if (Math.abs(diff) > 0.08) {
         displayFrame += diff * LERP_SPEED;
       } else {
         displayFrame = targetFrame;
@@ -203,34 +300,47 @@
     });
   }
 
-  // ========================================
-  // 4. COMMUNITY CAROUSEL NAVIGATION
-  // ========================================
-
-  const carousel = document.getElementById('communityCarousel');
-  const prevBtn = document.getElementById('carouselPrev');
-  const nextBtn = document.getElementById('carouselNext');
-
-  if (prevBtn && nextBtn && carousel) {
-    prevBtn.addEventListener('click', function () {
-      carousel.scrollBy({ left: -300, behavior: 'smooth' });
-    });
-    nextBtn.addEventListener('click', function () {
-      carousel.scrollBy({ left: 300, behavior: 'smooth' });
-    });
-  }
 
   // ========================================
   // 5. PRODUCT PAGINATOR DOTS
   // ========================================
 
   const dots = document.querySelectorAll('.products__dot');
-  dots.forEach(dot => {
-    dot.addEventListener('click', function () {
-      dots.forEach(d => d.classList.remove('active'));
-      this.classList.add('active');
+  const productsGrid = document.querySelector('.products__grid');
+
+  if (productsGrid && dots.length > 0) {
+    productsGrid.addEventListener('scroll', () => {
+      const scrollLeft = productsGrid.scrollLeft;
+      const maxScroll = productsGrid.scrollWidth - productsGrid.clientWidth;
+      
+      if (maxScroll <= 0) return;
+
+      const scrollPercentage = scrollLeft / maxScroll;
+      const numDots = dots.length;
+      let activeIndex = Math.round(scrollPercentage * (numDots - 1));
+      activeIndex = Math.max(0, Math.min(activeIndex, numDots - 1));
+      
+      dots.forEach((dot, index) => {
+        if (index === activeIndex) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }, { passive: true });
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', function () {
+        const maxScroll = productsGrid.scrollWidth - productsGrid.clientWidth;
+        const targetScroll = (index / (dots.length - 1)) * maxScroll;
+        
+        productsGrid.scrollTo({
+          left: targetScroll,
+          behavior: 'smooth'
+        });
+      });
     });
-  });
+  }
 
   // ========================================
   // 6. SMOOTH NAV SCROLL
@@ -411,6 +521,7 @@
   // Initialize flyout
   buildCategories();
   renderFlyoutGrid();
+
 
   // ========================================
   // 7. MAIN SCROLL LISTENER (raf-throttled)

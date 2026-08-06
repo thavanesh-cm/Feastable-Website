@@ -39,13 +39,13 @@
       </div>
       <nav class="header__nav" id="mainNav">
         <a href="#" id="nav-shop" data-flyout-toggle>Shop</a>
-        <a href="#mission" id="nav-story">Our Story</a>
-        <a href="#mission" id="nav-ethical">Ethical Sourcing</a>
+        <a href="ourstory.html" id="nav-story">Our Story</a>
+        <a href="ethicalsourcing.html" id="nav-ethical">Ethical Sourcing</a>
         <a href="#whereToBuy" id="nav-worldwide">Available Worldwide</a>
       </nav>
       <div class="header__utils">
         <button class="header__util-btn" id="helpBtn" title="Help">?</button>
-        <button class="header__util-btn" id="regionBtn" title="Region">🇺🇸</button>
+        <a href="region.html" class="header__util-btn" id="regionBtn" title="Region" style="text-decoration:none;">🇺🇸</a>
         <button class="header__util-btn" id="accountBtn" title="Account">☺</button>
         <button class="header__util-btn" id="storeBtn" title="Store Locator">📍</button>
         <a href="index.html" class="header__util-btn" id="homeBtn" title="Home" style="text-decoration:none;">🏠</a>
@@ -91,16 +91,44 @@
   <section class="hero" id="heroSection">
     <div class="hero__canvas-wrapper">
       <canvas class="hero__canvas" id="heroCanvas"></canvas>
-      <div class="hero__overlay"></div>
+
+      <!-- Bottom gradient overlay -->
+      <div class="hero__gradient-overlay"></div>
+
+      <!-- Premium loader -->
+      <div class="hero__loader" id="heroLoader">
+        <div class="hero__loader-ring">
+          <svg class="hero__loader-svg" viewBox="0 0 120 120">
+            <circle class="hero__loader-track" cx="60" cy="60" r="54" />
+            <circle class="hero__loader-progress" id="loaderProgress" cx="60" cy="60" r="54" />
+          </svg>
+          <span class="hero__loader-pct" id="loaderPct">0%</span>
+        </div>
+        <span class="hero__loader-text" id="loaderText">Loading experience</span>
+        <div class="hero__loader-dots">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <!-- Text overlay -->
+      <div class="hero__text-overlay" id="heroTextOverlay">
+        <h2 class="hero__title">FEASTABLES</h2>
+        <p class="hero__tagline">Taste the Crunch</p>
+      </div>
+
+      <!-- CTA overlay -->
+      <div class="hero__cta-overlay" id="heroCtaOverlay">
+        <a href="#products" class="hero__cta-btn" id="heroShopBtn">Shop Now</a>
+      </div>
+
+      <!-- Scroll hint -->
       <div class="hero__scroll-hint" id="scrollHint">
         <span>Scroll to explore</span>
-        <div class="hero__scroll-arrow"></div>
-      </div>
-      <div class="hero__loader" id="heroLoader">
-        <div class="hero__loader-bar">
-          <div class="hero__loader-fill" id="loaderFill"></div>
+        <div class="hero__scroll-chevrons">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
         </div>
-        <span class="hero__loader-text" id="loaderText">Loading experience...</span>
       </div>
     </div>
   </section>
@@ -271,67 +299,6 @@
     </div>
   </section>
 
-  <!-- ========================
-       6. COMMUNITY & VIDEO REEL
-       ======================== -->
-  <section class="community" id="community">
-    <div class="community__header reveal">
-      <h2 class="community__title">The Feastables Community</h2>
-      <p class="community__subtitle">Watch MrBeast and the team in action</p>
-    </div>
-
-    <div class="community__carousel" id="communityCarousel">
-      <!-- Video 1 -->
-      <div class="video-card reveal reveal-delay-1" id="video-1">
-        <div class="video-card__thumb">
-          <div class="video-card__play">▶</div>
-          <span class="placeholder-label" style="position:absolute;bottom:16px;color:rgba(255,255,255,0.2);">Video Thumbnail</span>
-        </div>
-        <div class="video-card__label">Almond</div>
-      </div>
-
-      <!-- Video 2 -->
-      <div class="video-card reveal reveal-delay-2" id="video-2">
-        <div class="video-card__thumb">
-          <div class="video-card__play">▶</div>
-          <span class="placeholder-label" style="position:absolute;bottom:16px;color:rgba(255,255,255,0.2);">Video Thumbnail</span>
-        </div>
-        <div class="video-card__label">Peanut Butter Cups</div>
-      </div>
-
-      <!-- Video 3 -->
-      <div class="video-card reveal reveal-delay-3" id="video-3">
-        <div class="video-card__thumb">
-          <div class="video-card__play">▶</div>
-          <span class="placeholder-label" style="position:absolute;bottom:16px;color:rgba(255,255,255,0.2);">Video Thumbnail</span>
-        </div>
-        <div class="video-card__label">Milk Chocolate</div>
-      </div>
-
-      <!-- Video 4 -->
-      <div class="video-card reveal reveal-delay-4" id="video-4">
-        <div class="video-card__thumb">
-          <div class="video-card__play">▶</div>
-          <span class="placeholder-label" style="position:absolute;bottom:16px;color:rgba(255,255,255,0.2);">Video Thumbnail</span>
-        </div>
-        <div class="video-card__label">Cookies & Crem</div>
-      </div>
-
-      <!-- Video 5 -->
-      <div class="video-card reveal" id="video-5">
-        <div class="video-card__thumb">
-          <div class="video-card__play">▶</div>
-          <span class="placeholder-label" style="position:absolute;bottom:16px;color:rgba(255,255,255,0.2);">Video Thumbnail</span>
-        </div>
-        <div class="video-card__label">Sour Gummies</div>
-      </div>
-    </div>
-
-    <div class="community__nav">
-      <button class="community__nav-btn" id="carouselPrev" title="Previous">←</button>
-      <button class="community__nav-btn" id="carouselNext" title="Next">→</button>
-    </div>
-  </section>
 
   <!-- ========================
        7. WHERE TO BUY
@@ -402,7 +369,7 @@
         <p class="mission__text">
           We're moving kids out of cocoa fields and into classrooms. Every Feastables bar supports our mission to create a better chocolate industry — one where farmers are paid fairly, communities thrive, and no child has to work in dangerous conditions. Together, we can make a real difference.
         </p>
-        <a href="#" class="btn btn--pink" id="learnMoreBtn">Learn More</a>
+        <a href="ethicalsourcing.html" class="btn btn--pink" id="learnMoreBtn">Learn More</a>
       </div>
       <div class="mission__visuals reveal reveal-delay-2">
         <div class="mission__photo mission__photo--main" id="mission-photo-main">
@@ -454,8 +421,8 @@
       <div class="footer__col">
         <h4 class="footer__col-title">Get to Know Us</h4>
         <div class="footer__links">
-          <a href="#" id="footer-our-story">Our Story</a>
-          <a href="#" id="footer-ethical">Ethical Sourcing</a>
+          <a href="ourstory.html" id="footer-our-story">Our Story</a>
+          <a href="ethicalsourcing.html" id="footer-ethical">Ethical Sourcing</a>
           <a href="#" id="footer-peanut-butter">Better Peanut Butter</a>
         </div>
       </div>
@@ -507,5 +474,18 @@
 
   <script src="cart.js"></script>
   <script src="index.js"></script>
+  <script>
+    // Restore saved region flag in header
+    (function() {
+      try {
+        var saved = localStorage.getItem('feastables_region');
+        if (saved) {
+          var region = JSON.parse(saved);
+          var btn = document.getElementById('regionBtn');
+          if (btn && region.flag) btn.textContent = region.flag;
+        }
+      } catch(e) {}
+    })();
+  </script>
 </body>
 </html>
